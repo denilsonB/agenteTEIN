@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <title>Cidadão de Rua</title>
+    </head>
+<body>
+    <nav class="navbar navbar-primary  " style="background-color: rgb(0, 188, 212);">
+        <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle" style="background-color: rgb(0, 188, 212);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="https://img.icons8.com/android/24/000000/menu.png">
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-left">
+                      <button class="dropdown-item" type="button">Ayron</button>
+                      <button class="dropdown-item" type="button">Denilson</button>
+                       <button class="dropdown-item" type="button">Diego</button>
+                    </div>
+                    <h3>&nbsp;Cidadão de Rua</h3>
+                  </div>
+    </nav>
+        <div class="form-row" style="margin-left: 10px">
+            <form id="formularioCidadaoDeRua">
+                <div class="progress" style="margin-top: 10px">
+                    <div class="progress-bar bg-primary" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>                       
+                </div>
+                <div>
+                    <h6><i>Etapa 4 de 4</i></h6>
+                </div>
+            <div class="form-row">  
+                    <div class="form-group" style="width:300px; display:table">
+                        <input type="text" style="display:table-cell; width:110%;  margin-bottom: 25px" class="form-control" id="sus" name="sus" placeholder="Nº SUS"><br>
+                        <input type="text" style="display:table-cell; width:110%;  margin-bottom: 25px" class="form-control" id="tempoRua" name="tempoRua" placeholder="Tempo na rua"><br>
+                        <input type="text" style="display:table-cell; width:110%;  margin-bottom: 25px" class="form-control" id="alimentaAoDia" name="alimentaAoDia" placeholder="Alimenta ao dia"><br>
+                        <input type="text" style="display:table-cell; width:110%;  margin-bottom: 25px" class="form-control" id="origemAlimentacao" name="origemAlimentacao" placeholder="Origem alimentação"><br>
+                        <input type="text" style="display:table-cell; width:110%;  margin-bottom: 25px" class="form-control" id="higienePessoal" name="higienePessoal" placeholder="higiene pessoal"><br>
+    
+                        <!--check boxs-->
+                        <input type="checkbox" id="recebeBeneficio" name="recebeBeneficio">
+                        <label for="scales">Recebe benefício</label>
+    
+                        
+                        <br><input type="checkbox" id="refFamiliar" name="refFamiliar">
+                        <label for="scales">Possui referência familíar</label>
+                    </div>
+                </div>
+                <div style="align-self: center;">
+                    <input type="submit" class="btn btn-primary btn-block" style="background-color: rgb(55, 216, 208)" name="cadastrar" value="Cadastrar">                    </div>
+                </div>
+                </form>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $('#formularioCidadaoDeRua').submit(function() {
+                var dados = $('#formularioCidadaoDeRua').serialize();
+
+                $.ajax({
+                    type : 'POST',
+                    url  : '../php/cidadaoDeRua.php',
+                    data : dados
+                })
+                .done(function(msg){
+				         $("#resultado").html(msg);
+				         $("#sus").val('');
+				         $("#tempoRua").val('');
+                         $("#alimentaAoDia").val('');
+				         $("#origemAlimentacao").val('');
+				         $("#higienePessoal").val('');
+                         $("#recebeBeneficio").prop('checked',false);
+                         $("#refFarmiliar").prop('checked',false);
+                         document.location = "sucesso.html";
+				     })
+				.fail(function(jqXHR, textStatus, msg){
+				          alert("Erro: " +msg);
+                });
+
+                return false;
+            });
+        });
+    </script>
+</body>
+</html>

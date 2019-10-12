@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <title>Cadastro Saúde</title>
+    </head>
+<body>
+    <nav class="navbar navbar-primary " style="background-color: rgb(0, 188, 212);">
+        <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle" style="background-color: rgb(0, 188, 212);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="https://img.icons8.com/android/24/000000/menu.png">
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-left">
+                      <button class="dropdown-item" type="button">Ayron</button>
+                      <button class="dropdown-item" type="button">Denilson</button>
+                       <button class="dropdown-item" type="button">Diego</button>
+                    </div>
+                    <h3>&nbsp;Cadastro Saúde</h3>
+                  </div>
+    </nav>
+        <div class="form-row" style="margin-left: 10px">
+            <form id="formularioSaude">
+                <div class="progress" style="margin-top: 10px">
+                    <div class="progress-bar bg-primary" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>                       
+                </div>
+                <div>
+                    <h6><i>Etapa 3 de 4</i></h6>
+                </div>
+            <div class="form-row">  
+                    <div class="form-group" style="width:300px; display:table">
+                        <input type="text" style="display:table-cell; width:110%;  margin-bottom: 25px" class="form-control" id="sus" name="sus" placeholder="Nº SUS"><br>
+                        <input type="text" style="display:table-cell; width:110%;  margin-bottom: 25px" class="form-control" id="doencaCardiaca" name="doencaCardiaca" placeholder="Deonça cardiaca"><br>
+                        <input type="text" style="display:table-cell; width:110%;  margin-bottom: 25px" class="form-control" id="peso" name="peso" placeholder="Peso"><br>
+                        <input type="text" style="display:table-cell; width:110%;  margin-bottom: 25px" class="form-control" id="doencaRespiratoria" name="doencaRespiratoria"  placeholder="Doença respiratoria"><br>
+                        <input type="text" style="display:table-cell; width:110%;  margin-bottom: 25px" class="form-control" id="problemaRins" name="problemaRins" placeholder="Problema nos rins"><br>
+                        <!--check boxs-->
+                        <input type="checkbox" id="fumante" name="fumante">
+                        <label for="scales">Fumante</label>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="mudanca" name="mudanca">
+                        <label for="scales">Mudança</label>
+                        
+                        <br><input type="checkbox" id="alcool" name="alcool">
+                        <label for="scales">Usa álcool</label>
+                        &nbsp;&nbsp;&nbsp;<input type="checkbox" id="diabetes" name="diabetes">
+                        <label for="scales">Diabetes</label>
+                        
+                        <br><input type="checkbox" id="drogas" name="drogas">
+                        <label for="scales">Drogas</label>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="avcDerrame" name="avcDerrame">
+                        <label for="scales">AVC / Derrame</label>
+
+                        <br><input type="checkbox" id="hipertenso" name="hipertenso">
+                        <label for="scales">Hipertenso</label>
+                        &nbsp;&nbsp;<input type="checkbox" id="cancer" name="cancer">
+                        <label for="scales">Câncer</label>
+                    </div>
+                </div>
+                <div style="align-self: center;">
+                        <a href="cadastroIndividual.html" type="button" style="display:table-cell; width:45%; background-color: rgb(0, 188, 212);"   class="btn btn-primary btn-lg ">Anterior</a>
+                        <input type="submit" class="btn btn-primary btn-block" style="background-color: rgb(55, 216, 208)" name="enviar" value="Proximo">
+                    </div>
+            </form>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $('#formularioSaude').submit(function() {
+                var dados = $('#formularioSaude').serialize();
+
+                $.ajax({
+                    type : 'POST',
+                    url  : '../php/saude.php',
+                    data : dados
+                })
+                .done(function(msg){
+				         $("#resultado").html(msg);
+				         $("#sus").val('');
+				         $("#doencaCardiaca").val('');
+                         $("#peso").val('');
+				         $("#doencaRespiratoria").val('');
+				         $("#problemaRins").val('');
+                         $("#fumante").prop('checked',false)
+                         $("#mudanca").prop('checked',false)
+                         $("#alcool").prop('checked',false);
+                         $("#diabetes").prop('checked',false)
+                         $("#drogas").prop('checked',false)
+                         $("#avcDerrame").prop('checked',false)
+                         $("#hipertenso").prop('checked',false)
+                         $("#cancer").prop('checked',false)
+                         document.location = "cadastroCidadaoDeRua.html";
+				     })
+				.fail(function(jqXHR, textStatus, msg){
+				          alert("Erro: " +msg);
+                });
+
+                return false;
+            });
+        });
+    </script>
+</body>
+</html>
